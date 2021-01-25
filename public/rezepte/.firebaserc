@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "rezepte-project": {
+      "hosting": {
+        "rezepte": [
+          "rezepte-project"
+        ]
+      }
+    }
+  }
+}
