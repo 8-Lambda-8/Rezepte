@@ -1,0 +1,18 @@
+<!-- [formGroup]="addIngredientForm" -->
+<form novalidate (ngSubmit)="onSubmit()">
+    <mat-form-field  >
+        <mat-label >Name</mat-label>
+        <input matInput required name="name" [(ngModel)]="ingredient.name" >
+    </mat-form-field>
+    &nbsp;
+    <mat-form-field appearance="">
+        <mat-label>Einheiten</mat-label>
+        <mat-select multiple required name="units" [(ngModel)]="ingredient.possibleUnits">
+            <mat-option *ngFor="let unit of unitList" [value]="unit">{{unit}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    &nbsp;
+    <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit">Add</button>
+    </mat-card-actions>
+</form>

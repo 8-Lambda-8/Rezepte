@@ -1,0 +1,16 @@
+<app-add-ingredient></app-add-ingredient>
+<!-- <mat-divider></mat-divider> -->
+
+<div *ngFor="let ingredient of ingredients; index as i">
+    <mat-form-field>
+        <mat-label >Name</mat-label>
+        <input (change)="onChange(ingredient)" matInput name="name" [(ngModel)]="ingredient.name">
+    </mat-form-field>
+    &nbsp;
+    <mat-form-field appearance="">
+        <mat-label>Einheiten</mat-label>
+        <mat-select (selectionChange)="onChange(ingredient)" multiple name="unit" [(ngModel)]="ingredient.possibleUnits">
+            <mat-option *ngFor="let unit of unitList" [value]="unit">{{unit}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
