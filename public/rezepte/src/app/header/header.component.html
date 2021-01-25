@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <!-- <span>{{title}}</span> -->
+
+  <span class="spacer"></span>
+  <ng-container *ngIf="user$ | async as user; else loginIcon">
+
+    <button mat-icon-button routerLink="/create" matTooltip="Post a cute">
+      <mat-icon class="icon">favorite</mat-icon>
+    </button>
+
+
+    <app-profile-card [user]="user" (logoutClick)="logout()">
+    </app-profile-card>
+
+  </ng-container>
+  <ng-template #loginIcon>
+    <button mat-button (click)="login()" matTooltip="Login">
+      <mat-icon svgIcon="google-colored"></mat-icon>
+      Log in
+    </button>
+  </ng-template>
+</mat-toolbar>
