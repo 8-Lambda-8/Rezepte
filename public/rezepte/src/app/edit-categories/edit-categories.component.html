@@ -1,0 +1,53 @@
+<app-add-category></app-add-category>
+
+<mat-list>
+    <ng-container *ngFor="let category of childCategories('')">
+        <mat-list-item>{{category.name}}
+            &nbsp;
+            <button mat-icon-button (click)="openDialog(category)">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </mat-list-item>
+        <mat-list style="margin-left:30px;">
+            <div *ngFor="let childCategory of childCategories(category.id)">
+                <mat-list-item>{{ childCategory.name }}
+                    &nbsp;
+                    <button mat-icon-button (click)="openDialog(childCategory)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </mat-list-item>
+                <mat-list style="margin-left:30px;">
+                    <div *ngFor="let childChildCategory of childCategories(childCategory.id)">
+                        <mat-list-item>{{ childChildCategory.name }}
+                            &nbsp;
+                            <button mat-icon-button (click)="openDialog(childChildCategory)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </mat-list-item>
+                        <mat-list style="margin-left:30px;">
+                            <div *ngFor="let childChildChildCategory of childCategories(childChildCategory.id)">
+                                <mat-list-item>{{ childChildChildCategory.name }}
+                                    &nbsp;
+                                    <button mat-icon-button (click)="openDialog(childChildChildCategory)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                </mat-list-item>
+                                <mat-list style="margin-left:30px;">
+                                    <div
+                                        *ngFor="let childChildChildChildCategory of childCategories(childChildChildCategory.id)">
+                                        <mat-list-item>{{ childChildChildChildCategory.name }}
+                                            &nbsp;
+                                            <button mat-icon-button (click)="openDialog(childChildChildChildCategory)">
+                                                <mat-icon>edit</mat-icon>
+                                            </button>
+                                        </mat-list-item>
+                                    </div>
+                                </mat-list>
+                            </div>
+                        </mat-list>
+                    </div>
+                </mat-list>
+            </div>
+        </mat-list>
+    </ng-container>
+</mat-list>

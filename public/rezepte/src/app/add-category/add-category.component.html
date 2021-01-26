@@ -1,0 +1,17 @@
+<form novalidate (ngSubmit)="onSubmit()">
+    <mat-form-field  >
+        <mat-label >Name</mat-label>
+        <input matInput required name="name" [(ngModel)]="category.name" >
+    </mat-form-field>
+    &nbsp;
+    <mat-form-field appearance="">
+        <mat-label>Parent</mat-label>
+        <mat-select required name="possibleParents" [(ngModel)]="category.parentCategory">
+            <mat-option *ngFor="let possibleParent of possibleParents" [value]="possibleParent.id">{{possibleParent.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    &nbsp;
+    <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit">Add</button>
+    </mat-card-actions>
+</form>

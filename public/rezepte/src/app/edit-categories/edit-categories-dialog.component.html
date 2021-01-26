@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Edit {{category.name}}</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="category.name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Parent</mat-label>
+    <mat-select name="possibleParents" [(ngModel)]="category.parentCategory">
+        <mat-option *ngFor="let possibleParent of possibleParents" [value]="possibleParent.id">{{possibleParent.name}}</mat-option>
+    </mat-select>
+</mat-form-field>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="category" cdkFocusInitial>Save</button>
+  <!-- [mat-dialog-close]="data.name" -->
+</div>

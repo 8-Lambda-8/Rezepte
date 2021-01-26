@@ -24,7 +24,8 @@ import { ListCategoryComponent } from './list-category/list-category.component';
 import { IngredientArrayComponent } from './ingredient-array/ingredient-array.component';
 import { IngredientSelectorComponent } from './ingredient-selector/ingredient-selector.component';
 import { AddIngredientComponent } from './add-ingredient/add-ingredient.component';
-import { EditIngredientsComponent } from './edit-ingredients/edit-ingredients.component';
+import { EditIngredientsComponent, } from './edit-ingredients/edit-ingredients.component';
+import { EditCategoriesComponent, EditCategoriesDialog } from './edit-categories/edit-categories.component';
 
 
 import { environment } from 'src/environments/environment';
@@ -45,8 +46,12 @@ import { HeaderComponent } from './header/header.component';
 import { ProfileCardComponent } from './profile-card/profile-card.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { EditCategoriesComponent } from './edit-categories/edit-categories.component';
-import {MatSidenavModule} from '@angular/material/sidenav';
+
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { AddCategoryComponent } from './add-category/add-category.component';
+import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 
@@ -66,7 +71,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     LoginComponent,
     HeaderComponent,
     ProfileCardComponent,
-    EditCategoriesComponent
+    EditCategoriesComponent,
+    EditCategoriesDialog,
+    AddCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -90,8 +97,12 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatMenuModule,
     MatSnackBarModule,
     HttpClientModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatListModule,
+    MatDialogModule,
+    MatFormFieldModule
   ],
+  exports: [MatFormFieldModule],
   providers: [],
   bootstrap: [AppComponent]
 })
