@@ -1,2 +1,12 @@
-<app-header></app-header>
-<app-edit-ingredients></app-edit-ingredients>
+<app-header [title]=title (toggleDrawer)="drawer.toggle()"></app-header>
+
+<mat-drawer-container class="container" autosize>
+    <mat-drawer #drawer class="sidenav" mode="side">
+        <p>Auto-resizing sidenav</p>
+
+    </mat-drawer>
+    <mat-drawer-content class="sidenav-content">
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+
+</mat-drawer-container>

@@ -1,5 +1,5 @@
 import { catchError, take } from 'rxjs/operators';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { EMPTY, Observable, of } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -18,6 +18,9 @@ import { AuthService } from '../service/auth.service';
 export class HeaderComponent {
   user$: Observable<firebase.User> = this.auth.user$;
 
+  @Input() title: string;
+  @Output() toggleDrawer = new EventEmitter<string>();
+  
   constructor(
     private readonly auth: AuthService,
     private readonly snackBar: MatSnackBar,

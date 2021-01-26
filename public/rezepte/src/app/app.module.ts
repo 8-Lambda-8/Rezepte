@@ -45,6 +45,9 @@ import { HeaderComponent } from './header/header.component';
 import { ProfileCardComponent } from './profile-card/profile-card.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { EditCategoriesComponent } from './edit-categories/edit-categories.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+
 
 
 
@@ -62,7 +65,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     EditIngredientsComponent,
     LoginComponent,
     HeaderComponent,
-    ProfileCardComponent
+    ProfileCardComponent,
+    EditCategoriesComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +89,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatToolbarModule,
     MatMenuModule,
     MatSnackBarModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent]
