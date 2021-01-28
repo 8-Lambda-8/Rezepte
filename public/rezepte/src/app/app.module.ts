@@ -26,6 +26,7 @@ import { IngredientSelectorComponent } from './ingredient-selector/ingredient-se
 import { AddIngredientComponent } from './add-ingredient/add-ingredient.component';
 import { EditIngredientsComponent, } from './edit-ingredients/edit-ingredients.component';
 import { EditCategoriesComponent, EditCategoriesDialog } from './edit-categories/edit-categories.component';
+import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
 
 
 import { environment } from 'src/environments/environment';
@@ -52,6 +53,9 @@ import { AddCategoryComponent } from './add-category/add-category.component';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatTableModule } from '@angular/material/table';
+
 
 
 
@@ -73,7 +77,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     ProfileCardComponent,
     EditCategoriesComponent,
     EditCategoriesDialog,
-    AddCategoryComponent
+    AddCategoryComponent,
+    EditRecipeComponent
   ],
   imports: [
     BrowserModule,
@@ -100,10 +105,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatSidenavModule,
     MatListModule,
     MatDialogModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatChipsModule,
+    MatTableModule
   ],
   exports: [MatFormFieldModule],
-  providers: [],
+  providers: [AngularFireModule, AngularFirestoreModule, AngularFireAuthModule,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

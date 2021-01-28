@@ -1,0 +1,92 @@
+<mat-card-title>{{title}}</mat-card-title>
+
+<form novalidate (ngSubmit)="onSubmit()">
+    <mat-form-field class="width100">
+        <mat-label>Name</mat-label>
+        <input matInput name="name" [(ngModel)]="recipe.name">
+    </mat-form-field>
+
+    <mat-form-field class="width100">
+        <mat-label>Categories</mat-label>
+        <mat-chip-list #chipList aria-label="Fruit selection">
+            <mat-chip *ngFor="let category of recipe.categories" [selectable]="selectable" [removable]="removable"
+                (removed)="remove(category)">
+                {{category.name}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Add Category" #categoryInput [formControl]="categoryCtrl" [matChipInputFor]="chipList"
+                [matAutocomplete]="auto" [matChipInputAddOnBlur]="addOnBlur">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedC($event)">
+            <mat-option *ngFor="let category of filteredCategories  | async" [value]="category">
+                {{category.name}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    
+    <br>
+    <table *ngIf="recipe.ingredients[0]" mat-table [dataSource]="recipe.ingredients" class="width100">
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <!-- Amount Column -->
+        <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef> Amount </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-form-field class="tableFormField">
+                    <input matInput type="number" placeholder="Amount" name="amount-{{element.id}}"
+                        [(ngModel)]="element.amount">
+                </mat-form-field>
+            </td>
+        </ng-container>
+
+        <!-- Unit Column -->
+        <ng-container matColumnDef="unit">
+            <th mat-header-cell *matHeaderCellDef> Unit </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-form-field class="tableFormField">
+                    <mat-label>Unit</mat-label>
+                    <mat-select name="unit-{{element.id}}" [(ngModel)]="element.unit">
+                        <mat-option *ngFor="let unit of getUnitListOfIngredient(element.id)" [value]="unit">
+                            {{unit}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </td>
+
+            
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <mat-form-field class="">
+        <mat-label>Add Ingredient</mat-label>
+        <input #ingredientInput type="text" matInput [formControl]="addIngredientCtrl" [matAutocomplete]="autoC">
+        <mat-autocomplete #autoC="matAutocomplete" (optionSelected)="selectedI($event)">
+            <mat-option *ngFor="let option of filteredIngredients | async" [value]="option">
+                {{option.name}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field class="width100">
+        <mat-label>Recipe text</mat-label>
+        <textarea matInput name="text" [(ngModel)]="recipe.text" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="10" cdkAutosizeMaxRows="30"></textarea>
+    </mat-form-field>
+
+    <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit">Save</button>
+    </mat-card-actions>
+</form>
