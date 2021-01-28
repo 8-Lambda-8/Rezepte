@@ -2,8 +2,45 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /{document=**} {
-      allow read: if true;
-      allow write: if request.auth != null;
+      allow read: if true; // isRead();
+      allow write: if false;
+    }
+    match /users/{userId}/{documents=**}{
+      //allow read: if isUser();
+      allow write: if isAdmin();
+      allow update: if request.auth.uid == userId
+      && request.resource.data.permissionClass == resource.data.permissionClass //user can update Data if permissionClass is same
+    }
+    match /categories/{categoryId}/{documents=**}{
+      //allow read: if isRead();
+      allow list: if isRead();
+      allow write: if isWrite();
+    }
+    match /ingredients/{ingredientId}/{documents=**}{
+      //allow read: if isRead();
+      allow write: if isWrite();
+    }
+    match /recipes/{recipeId}/{documents=**}{
+      //allow read: if isRead();
+      allow write: if isWrite();
+      allow create: if isUser();
+      allow update: if isUser()
+      && resource.data.author == request.auth.uid;
+    }
+    function getUserData(){
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data
+    }
+    function isRead() {
+      return getUserData().permissionClass > 0;
+   	}
+    function isUser() {
+      return getUserData().permissionClass > 1;
+   	}
+    function isWrite() {
+      return getUserData().permissionClass > 2;
+   	}
+    function isAdmin() {
+      return getUserData().permissionClass > 3;
     }
   }
 }
