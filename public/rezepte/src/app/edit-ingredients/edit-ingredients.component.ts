@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Ingredient } from "../models/ingredient";
-import { ingredientsService } from "../service/ingredients.service";
+import { IngredientsService } from "../service/ingredients.service";
 import { UNITS } from "../possible-units";
 
 
@@ -12,7 +12,7 @@ import { UNITS } from "../possible-units";
 export class EditIngredientsComponent implements OnInit {
 
   constructor(
-    private ingredientsService: ingredientsService,
+    private ingredientsService: IngredientsService,
   ) { }
 
   ingredients: Ingredient[] = [];

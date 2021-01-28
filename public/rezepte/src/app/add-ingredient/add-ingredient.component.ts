@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Ingredient } from "../models/ingredient";
-import { ingredientsService } from "../service/ingredients.service";
+import { IngredientsService } from "../service/ingredients.service";
 import { UNITS } from "../possible-units";
 import { FormControl } from '@angular/forms';
 
@@ -14,7 +14,7 @@ import { FormControl } from '@angular/forms';
 export class AddIngredientComponent implements OnInit {
 
   constructor(
-    private ingredientsService: ingredientsService,
+    private ingredientsService: IngredientsService,
   ) { }
   
   name = new FormControl();

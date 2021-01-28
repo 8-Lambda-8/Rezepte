@@ -6,11 +6,11 @@ import { Ingredient } from "../models/ingredient";
 @Injectable({
   providedIn: 'root'
 })
-export class ingredientsService {
+export class IngredientsService {
   
   ingredients: Ingredient[] = [];
 
-  ingredientsObservable: Observable<any[]>;
+  ingredientsObservable: Observable<Ingredient[]>;
 
   private ingredientsCol: AngularFirestoreCollection<Ingredient>;
 
@@ -25,7 +25,7 @@ export class ingredientsService {
   }
 
 
-  getIngredients(): Observable<Ingredient[]> {    
+  getIngredients(): Observable<Ingredient[]> {
     return this.ingredientsObservable;//of(this.ingredients);
   }
 
