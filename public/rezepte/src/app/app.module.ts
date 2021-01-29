@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,12 +18,11 @@ import { HttpClientModule } from '@angular/common/http';
 
 /* Components */
 import { AppComponent } from './app.component';
-import { AddRecipeComponent } from './add-recipe/add-recipe.component';
+
 import { RecipeComponent } from './recipe/recipe.component';
 import { ListRecipeComponent } from './list-recipe/list-recipe.component';
 import { ListCategoryComponent } from './list-category/list-category.component';
-import { IngredientArrayComponent } from './ingredient-array/ingredient-array.component';
-import { IngredientSelectorComponent } from './ingredient-selector/ingredient-selector.component';
+
 import { AddIngredientComponent } from './add-ingredient/add-ingredient.component';
 import { EditIngredientsComponent, } from './edit-ingredients/edit-ingredients.component';
 import { EditCategoriesComponent, EditCategoriesDialog } from './edit-categories/edit-categories.component';
@@ -64,12 +64,11 @@ import { MatTableModule } from '@angular/material/table';
 @NgModule({
   declarations: [
     AppComponent,
-    AddRecipeComponent,
+    
     RecipeComponent,
     ListRecipeComponent,
     ListCategoryComponent,
-    IngredientArrayComponent,
-    IngredientSelectorComponent,
+    
     AddIngredientComponent,
     EditIngredientsComponent,
     LoginComponent,
@@ -107,10 +106,11 @@ import { MatTableModule } from '@angular/material/table';
     MatDialogModule,
     MatFormFieldModule,
     MatChipsModule,
-    MatTableModule
+    MatTableModule,
+    AngularFireFunctionsModule
   ],
   exports: [MatFormFieldModule],
-  providers: [AngularFireModule, AngularFirestoreModule, AngularFireAuthModule,],
+  providers: [AngularFireModule, AngularFirestoreModule, AngularFireAuthModule,{ provide: REGION, useValue: 'europe-west3' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
