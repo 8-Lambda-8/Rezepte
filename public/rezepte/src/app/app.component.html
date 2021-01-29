@@ -5,9 +5,9 @@
 
         <mat-nav-list>
             <!-- <a mat-list-item href="..." *ngFor="let link of links"> {{ link }} </a> -->
-            <a mat-list-item href="editIngredients">Edit Ingredients</a>
-            <a mat-list-item href="editCategories">Edit Categories</a>
-            <a mat-list-item href="editRecipe/new">Add Recipe</a>
+            <a *ngIf="myUserData.permissionClass>=3" mat-list-item href="editIngredients">Edit Ingredients</a>
+            <a *ngIf="myUserData.permissionClass>=3" mat-list-item href="editCategories">Edit Categories</a>
+            <a *ngIf="myUserData.permissionClass>=2" mat-list-item href="editRecipe/new">Add Recipe</a>
         </mat-nav-list>
 
 
