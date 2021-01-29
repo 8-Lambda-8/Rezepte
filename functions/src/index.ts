@@ -33,3 +33,14 @@ export const onDeleteUser = functions
     .auth.user().onDelete(async (user) => {
         console.log(user);
     });
+
+export const getRandomRecipe = functions
+    .region(ServerRegion)
+    .https.onCall(async (data, context) => {
+
+        const snap = await db.collection("recipes").get()
+        const random = Math.floor(Math.random() * snap.docs.length);        
+
+        return snap.docs[random].id
+        
+    });

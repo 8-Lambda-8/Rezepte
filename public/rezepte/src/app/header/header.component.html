@@ -7,6 +7,9 @@
   <span class="spacer"></span>
   <ng-container *ngIf="user$ | async as user; else loginIcon">
 
+    <button mat-icon-button (click)="getRandomRecipe()">
+      <mat-icon svgIcon="dice">random</mat-icon>
+    </button>
     <button mat-icon-button routerLink="/create" matTooltip="Post a cute">
       <mat-icon class="icon">favorite</mat-icon>
     </button>
