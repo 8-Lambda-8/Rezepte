@@ -32,9 +32,11 @@ export class CategoriesService {
     return of(this.categories.find(ingredient => ingredient.id === id));
   }
 
-  /* getSubCategories(id: string): Observable<Category | undefined> {
-    return of(this.categories.find(ingredient => ingredient.parentCategory === id));
-  } */
+  getSubCategories(id: string): Observable<Category[] | undefined> {
+    console.log("getSubCategories_"+id)
+    console.log(this.categories)
+    return of(this.categories.filter(ingredient => ingredient.parentCategory === id));
+  }
 
   addCategory(ingredient: Category) {
     const id = this.db.createId();

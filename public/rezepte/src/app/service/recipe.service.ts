@@ -26,9 +26,10 @@ export class RecipeService {
     return this.db.collection('recipes').doc<Recipe>(id).valueChanges();
   }
 
-  getCategoryRecipes(categoryId: string) {
-    return this.db.collection('recipes', ref => ref
-      .where("categoryId", "array-contains", categoryId)
+  getCategoryRecipes(categoryId: string):Observable<Recipe[]> {
+    console.log("getCategoryRecipes")
+    return this.db.collection<Recipe>('recipes', ref => ref
+      .where("categoryIdArray", "array-contains", categoryId)
       .orderBy('name'))
       .valueChanges()
   }
