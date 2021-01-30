@@ -23,7 +23,7 @@ export class EditRecipeComponent implements OnInit {
   id: string
   title: string = "Edit Recipe";
 
-  recipe: Recipe = { name: "", categories: [], ingredients: [], author: "", text: "", id: "new" };
+  recipe: Recipe = { name: "", categories: [], categoryIdArray: [], ingredients: [], author: "", text: "", id: "new" };
   categories: Category[] = [];
   ingredients: Ingredient[] = [];
 
@@ -100,17 +100,23 @@ export class EditRecipeComponent implements OnInit {
   filteredCategories: Observable<Category[]>;
 
   remove(category: Category): void {
-    const index = this.recipe.categories.indexOf(category);
+    let index = this.recipe.categories.indexOf(category);
 
     if (index >= 0) {
       this.recipe.categories.splice(index, 1);
     }
+    index = this.recipe.categoryIdArray.indexOf(category.id);
+
+    if (index >= 0) {
+      this.recipe.categoryIdArray.splice(index, 1);
+    }
   }
 
   selectedC(event: MatAutocompleteSelectedEvent): void {
-    if (!this.recipe.categories.some(cat => cat.id == event.option.value.id))
+    if (!this.recipe.categoryIdArray.includes(event.option.value.id)){
       this.recipe.categories.push(event.option.value);
-    else console.log("Already contains Category");
+      this.recipe.categoryIdArray.push(event.option.value.id);
+    }else console.log("Already contains Category");
     console.log(this.recipe.categories)
     this.categoryInput.nativeElement.value = '';
     this.categoryCtrl.setValue("x");

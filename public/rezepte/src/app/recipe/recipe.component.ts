@@ -11,7 +11,7 @@ import { RecipeService } from '../service/recipe.service';
 export class RecipeComponent implements OnInit {
 
   id: string;
-  recipe: Recipe = { name: "", categories: [], ingredients: [], author: "", text: "", id: "new" };
+  recipe: Recipe = { name: "", categories: [], categoryIdArray: [], ingredients: [], author: "", text: "", id: "new" };
 
   displayedColumns: string[] = ['name', 'amount', 'unit'];
   

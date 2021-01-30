@@ -7,6 +7,7 @@ export interface Recipe{
     name: string;
     author: string;
     categories:Category[];
+    categoryIdArray: string[];
     ingredients:IngredientEntry[];
     text:string;
     /* rating:number; */
