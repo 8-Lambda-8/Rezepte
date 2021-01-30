@@ -4,7 +4,7 @@ import { Recipe } from '../models/recipe';
 import { RecipeService } from '../service/recipe.service';
 
 @Component({
-  selector: 'app-list-category',
+  selector: 'app-recipe',
   templateUrl: './recipe.component.html',
   styleUrls: ['./recipe.component.scss']
 })
