@@ -1,0 +1,18 @@
+Kategorien:
+<mat-nav-list>
+    <ng-container *ngFor="let category of childCategories('')">
+        <a mat-list-item href="categoryRecipes/{{category.id}}">{{category.name}}</a>
+        <mat-list *ngFor="let childCategory of childCategories(category.id)" style="margin-left: 30px;">
+            <a mat-list-item href="categoryRecipes/{{childCategory.id}}">{{childCategory.name}}</a>
+            <mat-list *ngFor="let childChildCategory of childCategories(childCategory)">
+                <a mat-list-item href="categoryRecipes/{{childChildCategory.id}}">{{childChildCategory.name}}</a>
+                <mat-list *ngFor="let childChildChildCategory of childCategories(childChildCategory.id)">
+                    <a mat-list-item href="categoryRecipes/{{childChildChildCategory.id}}">{{childChildChildCategory.name}}</a>
+                    <mat-list *ngFor="let childChildChildChildCategory of childCategories(childChildChildCategory.id)">
+                        <a mat-list-item href="categoryRecipes/{{childChildChildChildCategory.id}}">{{childChildChildChildCategory.name}}</a>
+                    </mat-list>
+                </mat-list>
+            </mat-list>
+        </mat-list>
+    </ng-container>
+</mat-nav-list>
