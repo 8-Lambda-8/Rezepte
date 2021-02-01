@@ -1,4 +1,11 @@
 <mat-card-title>{{recipe.name}}</mat-card-title>
+
+<a *ngIf="myUserData.permissionClass>=3||recipe.author==myUserData.uid" routerLink="/editRecipe/{{recipe.id}}" class="editButton">
+    <button mat-icon-button>
+        <mat-icon>edit</mat-icon>
+    </button>
+</a>
+
 Kategorien:
 <div *ngFor="let catergory of recipe.categories" style="margin-left: 10px;">{{catergory.name}}</div>
 
