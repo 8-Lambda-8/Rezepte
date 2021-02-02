@@ -21,12 +21,11 @@ export class RecipeWizardComponent {
 
     constructor(
         public dialogRef: MatDialogRef<RecipeWizardComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: { ingredients: Ingredient[], recipe: Recipe },
+        @Inject(MAT_DIALOG_DATA) public data: Recipe,
         private ingredientsService: IngredientsService
     ) {
-        this.ingredients = Object.assign([], data.ingredients);
-        this.recipe = Object.assign({}, data.recipe);
-
+        this.recipe = Object.assign({}, data);
+        ingredientsService.getIngredients().subscribe(item =>this.ingredients = item);
     }
 
     onNoClick(): void {
@@ -36,7 +35,7 @@ export class RecipeWizardComponent {
     addIngredient(ing: IngredientEntry) {
         console.log("create " + ing.name);
         this.ingredientsService.addItem({ id: "", name: ing.name, possibleUnits: [ing.unit] })
-        this.onTextChanged();
+        setTimeout(this.onTextChanged,2000);
     }
 
     onTextChanged() {

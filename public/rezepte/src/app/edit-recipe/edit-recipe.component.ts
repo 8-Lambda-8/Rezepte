@@ -181,7 +181,7 @@ export class EditRecipeComponent implements OnInit {
     console.log("openDialog");
     const dialogRef = this.dialog.open(RecipeWizardComponent, {
       width: '500px',
-      data: { ingredients: this.ingredients, recipe: this.recipe }
+      data: this.recipe
     });
 
     dialogRef.afterClosed().subscribe(result => {
