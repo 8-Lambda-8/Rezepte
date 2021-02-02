@@ -54,7 +54,7 @@ export class EditRecipeComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.getRecipe();
     this.subCategories();
-    this.subIngredientsService();
+    this.subIngredients();
   }
 
   getRecipe(): void {
@@ -79,7 +79,7 @@ export class EditRecipeComponent implements OnInit {
     });
   }
 
-  subIngredientsService() {
+  subIngredients() {
     this.ingredientsService.getIngredients().subscribe(item => {
       this.ingredients = item;
       this.ingredients.sort(function (a, b) {
