@@ -130,6 +130,7 @@ export class EditRecipeComponent implements OnInit {
 
   //ingredient Stuff
   @ViewChild('ingredientInput') ingredientInput: ElementRef<HTMLInputElement>;
+  @ViewChild('ingredientTable') matTable: MatTable<IngredientEntry>;
   displayedColumns: string[] = ['name', 'amount', 'unit'];
 
   addIngredientCtrl = new FormControl();
@@ -148,6 +149,12 @@ export class EditRecipeComponent implements OnInit {
     this.ingredientInput.nativeElement.value = '';
     this.addIngredientCtrl.setValue("x");
     this.addIngredientCtrl.setValue("");
+
+    this.recipe.ingredients = this.recipe.ingredients;
+    if (this.recipe.ingredients.length>1) {
+      this.matTable.renderRows();
+    }
+
   }
 
   private _filterI(name: string): Ingredient[] {
