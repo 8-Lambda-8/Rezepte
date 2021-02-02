@@ -57,6 +57,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 
@@ -111,6 +112,7 @@ import { MatTableModule } from '@angular/material/table';
     MatFormFieldModule,
     MatChipsModule,
     MatTableModule,
+    DragDropModule,
     AngularFireFunctionsModule
   ],
   exports: [MatFormFieldModule],

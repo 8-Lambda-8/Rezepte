@@ -16,6 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { RecipeWizardComponent } from "./recipe-wizard-dialog.component";
 import { IngredientEntry } from '../models/ingredientEntry';
 import { MatTable } from '@angular/material/table';
+import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -27,7 +28,7 @@ export class EditRecipeComponent implements OnInit {
   id: string
   title: string = "Edit Recipe";
 
-  recipe: Recipe = { name: "", categories: [], categoryIdArray: [], ingredients: [], author: "", text: "",originalText: "", id: "new" };
+  recipe: Recipe = { name: "", categories: [], categoryIdArray: [], ingredients: [], author: "", text: "", originalText: "", id: "new" };
   categories: Category[] = [];
   ingredients: Ingredient[] = [];
 
@@ -82,7 +83,7 @@ export class EditRecipeComponent implements OnInit {
   subIngredients() {
     this.ingredientsService.getIngredients().subscribe(item => {
       this.ingredients = item;
-      this.ingredients.forEach(ing=>ing.possibleUnits.push("-"));
+      this.ingredients.forEach(ing => ing.possibleUnits.push("-"));
       this.ingredients.sort(function (a, b) {
         if (a.name < b.name) { return -1; }
         if (a.name > b.name) { return 1; }
@@ -119,10 +120,10 @@ export class EditRecipeComponent implements OnInit {
   }
 
   selectedC(event: MatAutocompleteSelectedEvent): void {
-    if (!this.recipe.categoryIdArray.includes(event.option.value.id)){
+    if (!this.recipe.categoryIdArray.includes(event.option.value.id)) {
       this.recipe.categories.push(event.option.value);
       this.recipe.categoryIdArray.push(event.option.value.id);
-    }else console.log("Already contains Category");
+    } else console.log("Already contains Category");
     console.log(this.recipe.categories)
     this.categoryInput.nativeElement.value = '';
     this.categoryCtrl.setValue("x");
@@ -137,7 +138,7 @@ export class EditRecipeComponent implements OnInit {
   //ingredient Stuff
   @ViewChild('ingredientInput') ingredientInput: ElementRef<HTMLInputElement>;
   @ViewChild('ingredientTable') matTable: MatTable<IngredientEntry>;
-  displayedColumns: string[] = ['name', 'amount', 'unit'];
+  displayedColumns: string[] = ['handle', 'name', 'amount', 'unit'];
 
   addIngredientCtrl = new FormControl();
   filteredIngredients: Observable<Ingredient[]>;
@@ -157,7 +158,7 @@ export class EditRecipeComponent implements OnInit {
     this.addIngredientCtrl.setValue("");
 
     this.recipe.ingredients = this.recipe.ingredients;
-    if (this.recipe.ingredients.length>1) {
+    if (this.recipe.ingredients.length > 1) {
       this.matTable.renderRows();
     }
 
@@ -190,6 +191,12 @@ export class EditRecipeComponent implements OnInit {
       this.recipe = result;
       //this.categoriesService.updateCategory(result);
     });
+  }
+
+  drop(event: CdkDragDrop<IngredientEntry[]>) {
+    const previousIndex = this.recipe.ingredients.findIndex(row => row === event.item.data);
+    moveItemInArray(this.recipe.ingredients, previousIndex, event.currentIndex);
+    this.recipe.ingredients = this.recipe.ingredients.slice();
   }
 
 }
