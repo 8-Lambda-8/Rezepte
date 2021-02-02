@@ -14,7 +14,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class RecipeComponent implements OnInit {
 
   id: string;
-  recipe: Recipe = { name: "", categories: [], categoryIdArray: [], ingredients: [], author: "", text: "", id: "new" };
+  recipe: Recipe = { name: "", categories: [], categoryIdArray: [], ingredients: [], author: "", text: "",originalText: "", id: "new" };
 
   displayedColumns: string[] = ['name', 'amount', 'unit'];
   

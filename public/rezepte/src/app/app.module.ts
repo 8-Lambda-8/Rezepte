@@ -27,6 +27,7 @@ import { AddIngredientComponent } from './add-ingredient/add-ingredient.componen
 import { EditIngredientsComponent, } from './edit-ingredients/edit-ingredients.component';
 import { EditCategoriesComponent, EditCategoriesDialog } from './edit-categories/edit-categories.component';
 import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
+import { RecipeWizardComponent } from "./edit-recipe/recipe-wizard-dialog.component";
 import { CategoryRecipesComponent } from './category-recipes/category-recipes.component';
 
 
@@ -79,6 +80,7 @@ import { MatTableModule } from '@angular/material/table';
     EditCategoriesDialog,
     AddCategoryComponent,
     EditRecipeComponent,
+    RecipeWizardComponent,
     CategoryRecipesComponent,
   ],
   imports: [

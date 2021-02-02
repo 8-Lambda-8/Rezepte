@@ -12,6 +12,10 @@ import { Observable } from 'rxjs';
 import { filter, map, startWith } from 'rxjs/operators';
 import { Ingredient } from '../models/ingredient';
 import { IngredientsService } from "../service/ingredients.service";
+import { MatDialog } from '@angular/material/dialog';
+import { RecipeWizardComponent } from "./recipe-wizard-dialog.component";
+import { IngredientEntry } from '../models/ingredientEntry';
+import { MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -23,7 +27,7 @@ export class EditRecipeComponent implements OnInit {
   id: string
   title: string = "Edit Recipe";
 
-  recipe: Recipe = { name: "", categories: [], categoryIdArray: [], ingredients: [], author: "", text: "", id: "new" };
+  recipe: Recipe = { name: "", categories: [], categoryIdArray: [], ingredients: [], author: "", text: "",originalText: "", id: "new" };
   categories: Category[] = [];
   ingredients: Ingredient[] = [];
 
@@ -31,7 +35,8 @@ export class EditRecipeComponent implements OnInit {
     private route: ActivatedRoute,
     private recipeService: RecipeService,
     private categoriesService: CategoriesService,
-    private ingredientsService: IngredientsService
+    private ingredientsService: IngredientsService,
+    public dialog: MatDialog,
   ) {
     this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
       startWith(''),
@@ -169,6 +174,21 @@ export class EditRecipeComponent implements OnInit {
     }
 
     //navigate to recipe
+  }
+
+  //Recipe Wizard
+  openDialog(): void {
+    console.log("openDialog");
+    const dialogRef = this.dialog.open(RecipeWizardComponent, {
+      width: '500px',
+      data: { ingredients: this.ingredients, recipe: this.recipe }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.recipe = result;
+      //this.categoriesService.updateCategory(result);
+    });
   }
 
 }

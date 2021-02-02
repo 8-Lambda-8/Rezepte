@@ -1,5 +1,9 @@
 <mat-card-title>{{title}}</mat-card-title>
 
+    <button *ngIf="id=='new'" mat-icon-button class="wizardButton" (click)="openDialog()">
+        <mat-icon>auto_fix_high</mat-icon>
+    </button>
+
 <form novalidate (ngSubmit)="onSubmit()">
     <mat-form-field class="width100">
         <mat-label>Name</mat-label>

@@ -10,5 +10,6 @@ export interface Recipe{
     categoryIdArray: string[];
     ingredients:IngredientEntry[];
     text:string;
+    originalText:string;
     /* rating:number; */
 }
