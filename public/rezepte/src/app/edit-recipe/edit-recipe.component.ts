@@ -82,6 +82,7 @@ export class EditRecipeComponent implements OnInit {
   subIngredients() {
     this.ingredientsService.getIngredients().subscribe(item => {
       this.ingredients = item;
+      this.ingredients.forEach(ing=>ing.possibleUnits.push("-"));
       this.ingredients.sort(function (a, b) {
         if (a.name < b.name) { return -1; }
         if (a.name > b.name) { return 1; }
