@@ -34,7 +34,11 @@ export class RecipeWizardComponent {
 
     addIngredient(ing: IngredientEntry) {
         console.log("create " + ing.name);
-        this.ingredientsService.addItem({ id: "", name: ing.name, possibleUnits: [ing.unit] })
+        let units: string[] = [];
+        if(ing.unit!="-"){
+            units.push(ing.unit);
+        }
+        this.ingredientsService.addItem({ id: "", name: ing.name, possibleUnits: units })
         setTimeout(this.onTextChanged,2000);
     }
 
