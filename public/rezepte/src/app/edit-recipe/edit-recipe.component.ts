@@ -138,7 +138,7 @@ export class EditRecipeComponent implements OnInit {
   //ingredient Stuff
   @ViewChild('ingredientInput') ingredientInput: ElementRef<HTMLInputElement>;
   @ViewChild('ingredientTable') matTable: MatTable<IngredientEntry>;
-  displayedColumns: string[] = ['handle', 'name', 'amount', 'unit'];
+  displayedColumns: string[] = ['handle', 'name', 'amount', 'unit', "remove"];
 
   addIngredientCtrl = new FormControl();
   filteredIngredients: Observable<Ingredient[]>;
@@ -171,11 +171,20 @@ export class EditRecipeComponent implements OnInit {
 
 
   onSubmit() {
+    console.log("Save");
     if (this.recipe.name != ""/* &&this.ingredient.possibleUnits!=[] */) {
       this.recipeService.updateItem(this.recipe)
     }
 
     //navigate to recipe
+  }
+
+  removeIngredient(id: string, amount: number) {
+    console.log(id);
+    console.log(this.recipe.ingredients);
+    this.recipe.ingredients.splice(this.recipe.ingredients.findIndex(ing => ing.id == id && ing.amount == amount), 1);
+    console.log(this.recipe.ingredients);
+    this.matTable.renderRows();
   }
 
   //Recipe Wizard
