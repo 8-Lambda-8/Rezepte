@@ -18,12 +18,14 @@ export class CategoryRecipesComponent implements OnInit {
   ) { }
 
   id: string;
+  name: string;
   categoriesArray: string[] = [];
   recipeArray: Recipe[] = []
   
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.addSubCategoriesToArray(this.id);
+    this.categoriesService.getCategory(this.id).subscribe(cat=>this.name = cat.name);
   }
 
   addSubCategoriesToArray(id: string){
