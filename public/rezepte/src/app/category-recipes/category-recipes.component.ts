@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
 import { Recipe } from '../models/recipe';
 import { CategoriesService } from '../service/categories.service';
 import { RecipeService } from '../service/recipe.service';
@@ -24,15 +23,9 @@ export class CategoryRecipesComponent implements OnInit {
   
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    let catObservalbe = of(this.categoriesArray)
-    catObservalbe.subscribe(arr=>console.log(arr));
-
-    let recipeObservalbe = of(this.recipeArray)
-    recipeObservalbe.subscribe(arr=>console.log(arr));
     this.addSubCategoriesToArray(this.id);
   }
 
-  //Todo: Fix this
   addSubCategoriesToArray(id: string){
     console.log("addSubCategoriesToArray_"+id)
     if(!this.categoriesArray.includes(id))

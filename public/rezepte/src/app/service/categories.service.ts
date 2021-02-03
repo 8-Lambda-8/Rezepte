@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Category } from "../models/category";
 
@@ -8,34 +9,26 @@ import { Category } from "../models/category";
 })
 export class CategoriesService {
 
-  categories: Category[] = [];
-
-  categoriesObservable: Observable<any[]>;
+  categoriesObservable: Observable<Category[]>;
 
   private ingredientsCol: AngularFirestoreCollection<Category>;
 
   constructor(private db: AngularFirestore) {
-    this.ingredientsCol = db.collection('categories',ref => ref.orderBy('name'))
-    
+    this.ingredientsCol = db.collection('categories', ref => ref.orderBy('name'));
+
     this.categoriesObservable = this.ingredientsCol.valueChanges();
-    
-    this.categoriesObservable.subscribe(entry=> {
-      this.categories = entry;
-    }); 
   }
 
-  getCategories(): Observable<Category[]> {    
+  getCategories(): Observable<Category[]> {
     return this.categoriesObservable;
   }
 
   getCategory(id: string): Observable<Category | undefined> {
-    return of(this.categories.find(ingredient => ingredient.id === id));
+    return this.categoriesObservable.pipe(map(categories=>categories.find(category=>category.id==id)));
   }
 
-  getSubCategories(id: string): Observable<Category[] | undefined> {
-    console.log("getSubCategories_"+id)
-    console.log(this.categories)
-    return of(this.categories.filter(ingredient => ingredient.parentCategory === id));
+  getSubCategories(id: string): Observable<Category[]> {
+    return this.categoriesObservable.pipe(map(categories=>categories.filter(category=>category.parentCategory==id)));
   }
 
   addCategory(ingredient: Category) {
