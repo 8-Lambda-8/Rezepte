@@ -1,18 +1,28 @@
 Kategorien:
 <mat-nav-list>
-    <ng-container *ngFor="let category of childCategories('')">
-        <a mat-list-item href="categoryRecipes/{{category.id}}">{{category.name}}</a>
-        <mat-list *ngFor="let childCategory of childCategories(category.id)" style="margin-left: 30px;">
-            <a mat-list-item href="categoryRecipes/{{childCategory.id}}">{{childCategory.name}}</a>
-            <mat-list *ngFor="let childChildCategory of childCategories(childCategory)">
-                <a mat-list-item href="categoryRecipes/{{childChildCategory.id}}">{{childChildCategory.name}}</a>
-                <mat-list *ngFor="let childChildChildCategory of childCategories(childChildCategory.id)">
-                    <a mat-list-item href="categoryRecipes/{{childChildChildCategory.id}}">{{childChildChildCategory.name}}</a>
-                    <mat-list *ngFor="let childChildChildChildCategory of childCategories(childChildChildCategory.id)">
-                        <a mat-list-item href="categoryRecipes/{{childChildChildChildCategory.id}}">{{childChildChildChildCategory.name}}</a>
-                    </mat-list>
-                </mat-list>
-            </mat-list>
-        </mat-list>
-    </ng-container>
+    <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <!-- This is the tree node template for leaf nodes -->
+        <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="tree-node">
+            <div class="inline">
+                <button mat-icon-button disabled></button>
+                <a mat-list-item href="categoryRecipes/{{node.id}}">{{node.name}}</a>
+            </div>
+        </cdk-nested-tree-node>
+
+        <!-- This is the tree node template for expandable nodes -->
+        <cdk-nested-tree-node *cdkTreeNodeDef="let node; when: hasChild" class="tree-node">
+            <div class="inline">
+                <button mat-icon-button [attr.aria-label]="'Toggle ' + node.name" cdkTreeNodeToggle>
+                    <mat-icon class="mat-icon-rtl-mirror">
+                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                    </mat-icon>
+                </button>
+                <a mat-list-item style="height: 40px" href="categoryRecipes/{{node.id}}">{{node.name}}</a>
+            </div>
+            <div [class.tree-invisible]="!treeControl.isExpanded(node)">
+                <ng-container cdkTreeNodeOutlet></ng-container>
+            </div>
+
+        </cdk-nested-tree-node>
+    </cdk-tree>
 </mat-nav-list>

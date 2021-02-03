@@ -58,6 +58,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CdkTreeModule } from '@angular/cdk/tree';
 
 
 
@@ -71,7 +72,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     RecipeComponent,
     ListRecipeComponent,
     ListCategoryComponent,
-    
+
     AddIngredientComponent,
     EditIngredientsComponent,
     LoginComponent,
@@ -113,6 +114,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatChipsModule,
     MatTableModule,
     DragDropModule,
+    CdkTreeModule,
     AngularFireFunctionsModule
   ],
   exports: [MatFormFieldModule],
