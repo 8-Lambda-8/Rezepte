@@ -25,6 +25,10 @@ export class RecipeService {
     console.log("get "+id);
     return this.db.collection('recipes').doc<Recipe>(id).valueChanges();
   }
+  
+  getAllRecipes(): Observable<Recipe[]> {
+    return this.db.collection<Recipe>('recipes',ref=>ref.orderBy("name")).valueChanges();
+  }
 
   getCategoryRecipes(categoryId: string):Observable<Recipe[]> {
     console.log("getCategoryRecipes")

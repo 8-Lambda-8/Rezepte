@@ -10,6 +10,9 @@
             <a *ngIf="myUserData.permissionClass>=2" mat-list-item href="editRecipe/new">Add Recipe</a>
         </mat-nav-list>
         <mat-divider></mat-divider>
+        <mat-nav-list>
+            <a *ngIf="myUserData.permissionClass>=1" mat-list-item href="allRecipes">All Recipes</a>
+        </mat-nav-list>
         <br>
         <app-list-category></app-list-category>
 

@@ -59,6 +59,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CdkTreeModule } from '@angular/cdk/tree';
+import { AllRecipesComponent } from './all-recipes/all-recipes.component';
 
 
 
@@ -84,6 +85,7 @@ import { CdkTreeModule } from '@angular/cdk/tree';
     EditRecipeComponent,
     RecipeWizardComponent,
     CategoryRecipesComponent,
+    AllRecipesComponent,
   ],
   imports: [
     BrowserModule,
