@@ -95,6 +95,9 @@ export class RecipeWizardComponent {
                 ingredient.amount = (+words[0]);
                 ingredient.name = words[2];
                 ingredient.unit = words[1];
+                if (ingredient.unit.toLowerCase() == "kleine") { // "2 kleine Eier"
+                    ingredient.unit = "-"
+                }
             } else if (words.length == 4 && !isNaN(+words[0])) { // "25 dag Topfen (20%)"
                 ingredient.amount = (+words[0])
                 ingredient.name = words[2] + " " + words[3];
