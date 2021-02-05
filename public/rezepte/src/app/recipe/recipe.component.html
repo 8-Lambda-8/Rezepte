@@ -1,6 +1,7 @@
 <mat-card-title>{{recipe.name}}</mat-card-title>
 
-<a *ngIf="myUserData.permissionClass>=3||recipe.author==myUserData.uid" routerLink="/editRecipe/{{recipe.id}}" class="editButton">
+<a *ngIf="myUserData.permissionClass>=3||recipe.author==myUserData.uid" routerLink="/editRecipe/{{recipe.id}}"
+    class="editButton">
     <button mat-icon-button>
         <mat-icon>edit</mat-icon>
     </button>
@@ -15,7 +16,8 @@ Kategorien:
     <!-- Name Column -->
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Zutat </th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell [ngStyle]="{'font-weight': element.id.endsWith('Seperator') ? 'bold' : 'normal'}"
+            *matCellDef="let element">
             {{element.name}}
         </td>
     </ng-container>

@@ -25,7 +25,7 @@ export class RecipeWizardComponent {
         private ingredientsService: IngredientsService
     ) {
         this.recipe = Object.assign({}, data);
-        ingredientsService.getIngredients().subscribe(item =>this.ingredients = item);
+        ingredientsService.getIngredients().subscribe(item => this.ingredients = item);
     }
 
     onNoClick(): void {
@@ -35,11 +35,11 @@ export class RecipeWizardComponent {
     addIngredient(ing: IngredientEntry) {
         console.log("create " + ing.name);
         let units: string[] = [];
-        if(ing.unit!="-"){
+        if (ing.unit != "-") {
             units.push(ing.unit);
         }
         this.ingredientsService.addItem({ id: "", name: ing.name, possibleUnits: units })
-        setTimeout(this.onTextChanged,2000);
+        setTimeout(this.onTextChanged, 2000);
     }
 
     onTextChanged() {
@@ -62,6 +62,10 @@ export class RecipeWizardComponent {
         ingredientText = ingredientText.replaceAll("\n", " ");
         ingredientText = ingredientText.replaceAll("  ", " ");
         ingredientText = ingredientText.replaceAll(" und ", ", ");
+        ingredientText = ingredientText.replaceAll(" oder ", ", ");
+        ingredientText = ingredientText.replaceAll(" Sauce: ", ", Sauce:, ");
+        ingredientText = ingredientText.replaceAll(" Creme: ", ", Creme:, ");
+        ingredientText = ingredientText.replaceAll(" Teig: ", ", Teig:, ");
 
         console.log(ingredientText);
         if (ingredientText.endsWith(" "))
@@ -118,6 +122,11 @@ export class RecipeWizardComponent {
                 ingredient.unit = "EL";
             }
 
+            if (ingredient.name.endsWith("."))
+                ingredient.name = ingredient.name.slice(0, -1);
+            if (ingredient.name.endsWith(","))
+                ingredient.name = ingredient.name.slice(0, -1);
+
             if (ingredient.unit.endsWith("."))
                 ingredient.unit = ingredient.unit.slice(0, -1);
 
@@ -126,10 +135,16 @@ export class RecipeWizardComponent {
             let index = this.ingredients.findIndex(ing => ing.name == ingredient.name);
             if (index != -1) {
                 ingredient.id = this.ingredients[index].id;
+            }else if(ingredient.name=="Sauce:"){
+                ingredient.id="sauceSeperator";
+            }else if(ingredient.name=="Teig:"){
+                ingredient.id="doughSeperator";
+            }else if(ingredient.name=="Creme:"){
+                ingredient.id="cremeSeperator";
             }
 
             console.log(ingredient);
-            if (!this.recipe.ingredients.find(ing => ing.id == ingredient.id && ing.name == ingredient.name)) {
+            if (!this.recipe.ingredients.find(ing => ing.id == ingredient.id && ing.amount == ingredient.amount)) {
                 this.recipe.ingredients.push(ingredient);
             }
 
