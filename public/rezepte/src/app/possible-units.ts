@@ -11,6 +11,8 @@ export const UNITS: string[] = [
     "Tassen",
     "Tropfen",
     "Prise",
+    "Becher",
+    "Schachteln",
 
 ];
 
