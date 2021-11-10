@@ -10,13 +10,13 @@ import { AuthService } from './service/auth.service';
 })
 export class AppComponent {
   title = 'Rezepte';
-  myUserData: UserData =  {uid:"",name:"",permissionClass:0,photoURL:"",email:""};
+  myUserData: UserData = { uid: "", name: "", permissionClass: 0, photoURL: "", email: "" };
   constructor(
     private db: AngularFirestore,
     private readonly auth: AuthService
-  ){
-    this.auth.user$.subscribe(user =>{
-      this.db.collection('users').doc<UserData>(user.uid).valueChanges().subscribe(data=>this.myUserData=data)
+  ) {
+    this.auth.user$.subscribe(user => {
+      this.db.collection('users').doc<UserData>(user.uid).valueChanges().subscribe(data => this.myUserData = data)
     });
   }
 }

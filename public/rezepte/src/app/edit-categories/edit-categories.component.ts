@@ -81,7 +81,7 @@ export class EditCategoriesDialog {
 
   }
 
-  removeChildCategories(id: string) {        
+  removeChildCategories(id: string) {
     return this.possibleParents.filter(obj => {
       return obj.parentCategory != id && obj.id != id;
     });

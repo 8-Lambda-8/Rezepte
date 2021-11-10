@@ -21,26 +21,26 @@ export class CategoryRecipesComponent implements OnInit {
   name: string;
   categoriesArray: string[] = [];
   recipeArray: Recipe[] = []
-  
+
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.addSubCategoriesToArray(this.id);
-    this.categoriesService.getCategory(this.id).subscribe(cat=>this.name = cat.name);
+    this.categoriesService.getCategory(this.id).subscribe(cat => this.name = cat.name);
   }
 
-  addSubCategoriesToArray(id: string){
-    console.log("addSubCategoriesToArray_"+id)
-    if(!this.categoriesArray.includes(id))
+  addSubCategoriesToArray(id: string) {
+    console.log("addSubCategoriesToArray_" + id)
+    if (!this.categoriesArray.includes(id))
       this.categoriesArray.push(id);
 
-    this.recipeService.getCategoryRecipes(id).subscribe(recipes=>{
-      recipes.forEach(recipe=>{
-        if(!this.recipeArray.find(r=>r.id==recipe.id  ))
+    this.recipeService.getCategoryRecipes(id).subscribe(recipes => {
+      recipes.forEach(recipe => {
+        if (!this.recipeArray.find(r => r.id == recipe.id))
           this.recipeArray.push(recipe);
       })
     });
-    this.categoriesService.getSubCategories(id).subscribe(subCategories=>{
-      subCategories.forEach(category=>this.addSubCategoriesToArray(category.id))
+    this.categoriesService.getSubCategories(id).subscribe(subCategories => {
+      subCategories.forEach(category => this.addSubCategoriesToArray(category.id))
     });
   }
 

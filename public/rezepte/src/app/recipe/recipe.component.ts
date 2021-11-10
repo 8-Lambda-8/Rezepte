@@ -14,21 +14,21 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class RecipeComponent implements OnInit {
 
   id: string;
-  recipe: Recipe = { name: "", categories: [], categoryIdArray: [], ingredients: [], author: "", text: "",originalText: "", id: "new" };
+  recipe: Recipe = { name: "", categories: [], categoryIdArray: [], ingredients: [], author: "", text: "", originalText: "", id: "new" };
 
   displayedColumns: string[] = ['name', 'amount', 'unit'];
-  
-  myUserData: UserData =  {uid:"",name:"",permissionClass:0,photoURL:"",email:""};
-  
+
+  myUserData: UserData = { uid: "", name: "", permissionClass: 0, photoURL: "", email: "" };
+
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
     private db: AngularFirestore,
     private readonly auth: AuthService,
-    
-  ) { 
-    this.auth.user$.subscribe(user =>{
-      this.db.collection('users').doc<UserData>(user.uid).valueChanges().subscribe(data=>this.myUserData=data)
+
+  ) {
+    this.auth.user$.subscribe(user => {
+      this.db.collection('users').doc<UserData>(user.uid).valueChanges().subscribe(data => this.myUserData = data)
     });
   }
 
@@ -40,7 +40,7 @@ export class RecipeComponent implements OnInit {
   getRecipe(): void {
 
     this.recipeService.getRecipe(this.id)
-      .subscribe(recipe =>{
+      .subscribe(recipe => {
         this.recipe = recipe
       });
   }

@@ -24,11 +24,11 @@ export class CategoriesService {
   }
 
   getCategory(id: string): Observable<Category | undefined> {
-    return this.categoriesObservable.pipe(map(categories=>categories.find(category=>category.id==id)));
+    return this.categoriesObservable.pipe(map(categories => categories.find(category => category.id == id)));
   }
 
   getSubCategories(id: string): Observable<Category[]> {
-    return this.categoriesObservable.pipe(map(categories=>categories.filter(category=>category.parentCategory==id)));
+    return this.categoriesObservable.pipe(map(categories => categories.filter(category => category.parentCategory == id)));
   }
 
   addCategory(ingredient: Category) {

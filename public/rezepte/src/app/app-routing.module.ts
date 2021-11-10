@@ -13,8 +13,8 @@ const routes: Routes = [
   { path: 'editCategories', component: EditCategoriesComponent },
   { path: 'editRecipe/:id', component: EditRecipeComponent },
   { path: 'recipe/:id', component: RecipeComponent },
-  { path: 'categoryRecipes/:id', component: CategoryRecipesComponent},
-  { path: 'allRecipes', component: AllRecipesComponent},
+  { path: 'categoryRecipes/:id', component: CategoryRecipesComponent },
+  { path: 'allRecipes', component: AllRecipesComponent },
 
 ]
 

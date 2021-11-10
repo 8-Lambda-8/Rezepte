@@ -16,12 +16,12 @@ export class AddIngredientComponent implements OnInit {
   constructor(
     private ingredientsService: IngredientsService,
   ) { }
-  
+
   name = new FormControl();
   units = new FormControl();
 
   unitList: string[] = UNITS;
-  ingredient: Ingredient = {id:"", name: "", possibleUnits: []};
+  ingredient: Ingredient = { id: "", name: "", possibleUnits: [] };
 
   ngOnInit(): void {
     /* this.getIngredients(); */
@@ -32,7 +32,7 @@ export class AddIngredientComponent implements OnInit {
   } */
 
   onSubmit() {
-    if(this.ingredient.name!=""&&this.ingredient.possibleUnits!=[]){
+    if (this.ingredient.name != "" && this.ingredient.possibleUnits != []) {
       this.ingredientsService.addItem(this.ingredient)
       this.ingredient.name = "";
       this.ingredient.possibleUnits = [];

@@ -7,7 +7,7 @@ import { Ingredient } from "../models/ingredient";
   providedIn: 'root'
 })
 export class IngredientsService {
-  
+
   ingredients: Ingredient[] = [];
 
   ingredientsObservable: Observable<Ingredient[]>;
@@ -15,13 +15,13 @@ export class IngredientsService {
   private ingredientsCol: AngularFirestoreCollection<Ingredient>;
 
   constructor(private db: AngularFirestore) {
-    this.ingredientsCol = db.collection('ingredients',ref => ref.orderBy('name'))
-    
+    this.ingredientsCol = db.collection('ingredients', ref => ref.orderBy('name'))
+
     this.ingredientsObservable = this.ingredientsCol.valueChanges();
-    
-    this.ingredientsObservable.subscribe(entry=> {
+
+    this.ingredientsObservable.subscribe(entry => {
       this.ingredients = entry;
-    }); 
+    });
   }
 
 

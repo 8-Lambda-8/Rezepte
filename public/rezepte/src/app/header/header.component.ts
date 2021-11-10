@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import firebase from 'firebase/app';
 import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser'; 
+import { DomSanitizer } from '@angular/platform-browser';
 import { AngularFireFunctions } from '@angular/fire/functions';
 
 import { AuthService } from '../service/auth.service';
@@ -21,7 +21,7 @@ export class HeaderComponent {
 
   @Input() title: string;
   @Output() toggleDrawer = new EventEmitter<string>();
-  
+
   getRandom: CallableFunction
 
   constructor(
@@ -31,7 +31,7 @@ export class HeaderComponent {
     private iconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer,
     private fireFunctions: AngularFireFunctions
-    
+
   ) {
     this.registerProviderIcons();
     this.getRandom = fireFunctions.httpsCallable('getRandomRecipe');
@@ -80,15 +80,15 @@ export class HeaderComponent {
       .addSvgIcon('dice', this.sanitizer.bypassSecurityTrustResourceUrl('../assets/dice.svg'))
   }
 
-  getRandomRecipe(){
+  getRandomRecipe() {
     let obs: Observable<string> = this.getRandom({ name: 'Bla bla' });
-    obs.toPromise().then(randomId=>{
-      console.log("navigate to "+randomId)
-      this.router.navigateByUrl("/recipe/"+randomId).then(() => {
+    obs.toPromise().then(randomId => {
+      console.log("navigate to " + randomId)
+      this.router.navigateByUrl("/recipe/" + randomId).then(() => {
         window.location.reload();
       });
     });
-    
+
   }
 
 }

@@ -18,19 +18,19 @@ export class RecipeService {
     private readonly auth: AuthService,
   ) {
     this.recipeCol = db.collection('recipes');
-    this.auth.user$.subscribe(user=>this.user=user);
+    this.auth.user$.subscribe(user => this.user = user);
   }
 
   getRecipe(id: string): Observable<Recipe> {
-    console.log("get "+id);
+    console.log("get " + id);
     return this.db.collection('recipes').doc<Recipe>(id).valueChanges();
   }
-  
+
   getAllRecipes(): Observable<Recipe[]> {
-    return this.db.collection<Recipe>('recipes',ref=>ref.orderBy("name")).valueChanges();
+    return this.db.collection<Recipe>('recipes', ref => ref.orderBy("name")).valueChanges();
   }
 
-  getCategoryRecipes(categoryId: string):Observable<Recipe[]> {
+  getCategoryRecipes(categoryId: string): Observable<Recipe[]> {
     console.log("getCategoryRecipes")
     return this.db.collection<Recipe>('recipes', ref => ref
       .where("categoryIdArray", "array-contains", categoryId)
@@ -43,7 +43,7 @@ export class RecipeService {
       const id = this.db.createId();
       recipe.id = id;
       recipe.author = this.user.uid;
-        this.recipeCol.doc(recipe.id).set(recipe);
+      this.recipeCol.doc(recipe.id).set(recipe);
     } else {
       this.recipeCol.doc(recipe.id).update(recipe);
     }

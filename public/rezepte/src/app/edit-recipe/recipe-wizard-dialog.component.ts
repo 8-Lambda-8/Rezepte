@@ -135,12 +135,12 @@ export class RecipeWizardComponent {
             let index = this.ingredients.findIndex(ing => ing.name == ingredient.name);
             if (index != -1) {
                 ingredient.id = this.ingredients[index].id;
-            }else if(ingredient.name=="Sauce:"){
-                ingredient.id="sauceSeperator";
-            }else if(ingredient.name=="Teig:"){
-                ingredient.id="doughSeperator";
-            }else if(ingredient.name=="Creme:"){
-                ingredient.id="cremeSeperator";
+            } else if (ingredient.name == "Sauce:") {
+                ingredient.id = "sauceSeperator";
+            } else if (ingredient.name == "Teig:") {
+                ingredient.id = "doughSeperator";
+            } else if (ingredient.name == "Creme:") {
+                ingredient.id = "cremeSeperator";
             }
 
             console.log(ingredient);

@@ -62,14 +62,10 @@ import { CdkTreeModule } from '@angular/cdk/tree';
 import { AllRecipesComponent } from './all-recipes/all-recipes.component';
 
 
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
-    
+
     RecipeComponent,
     ListRecipeComponent,
     ListCategoryComponent,
@@ -120,7 +116,7 @@ import { AllRecipesComponent } from './all-recipes/all-recipes.component';
     AngularFireFunctionsModule
   ],
   exports: [MatFormFieldModule],
-  providers: [AngularFireModule, AngularFirestoreModule, AngularFireAuthModule,{ provide: REGION, useValue: 'europe-west3' }],
+  providers: [AngularFireModule, AngularFirestoreModule, AngularFireAuthModule, { provide: REGION, useValue: 'europe-west3' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

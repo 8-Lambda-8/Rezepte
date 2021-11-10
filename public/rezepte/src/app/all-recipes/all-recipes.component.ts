@@ -18,10 +18,10 @@ export class AllRecipesComponent implements OnInit {
   id: string;
   name: string;
   recipeArray: Recipe[] = []
-  
+
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.recipeService.getAllRecipes().subscribe(recipes=>this.recipeArray = recipes);
+    this.recipeService.getAllRecipes().subscribe(recipes => this.recipeArray = recipes);
   }
 
 }

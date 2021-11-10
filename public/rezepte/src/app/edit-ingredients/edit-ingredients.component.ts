@@ -27,7 +27,7 @@ export class EditIngredientsComponent implements OnInit {
 
   unitList: string[] = UNITS;
 
-  onChange(ingredient: Ingredient){
+  onChange(ingredient: Ingredient) {
     console.log(ingredient);
     this.ingredientsService.updateItem(ingredient);
   }

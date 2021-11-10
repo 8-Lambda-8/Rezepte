@@ -1,13 +1,14 @@
 <form novalidate (ngSubmit)="onSubmit()">
-    <mat-form-field  >
-        <mat-label >Name</mat-label>
-        <input matInput required name="name" [(ngModel)]="category.name" >
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput required name="name" [(ngModel)]="category.name">
     </mat-form-field>
     &nbsp;
     <mat-form-field appearance="">
         <mat-label>Parent</mat-label>
         <mat-select required name="possibleParents" [(ngModel)]="category.parentCategory">
-            <mat-option *ngFor="let possibleParent of possibleParents" [value]="possibleParent.id">{{possibleParent.name}}</mat-option>
+            <mat-option *ngFor="let possibleParent of possibleParents" [value]="possibleParent.id">
+                {{possibleParent.name}}</mat-option>
         </mat-select>
     </mat-form-field>
     &nbsp;
