@@ -60,6 +60,7 @@ import { MatTableModule } from '@angular/material/table';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { AllRecipesComponent } from './all-recipes/all-recipes.component';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
 
 
 @NgModule({
@@ -82,6 +83,7 @@ import { AllRecipesComponent } from './all-recipes/all-recipes.component';
     RecipeWizardComponent,
     CategoryRecipesComponent,
     AllRecipesComponent,
+    UserSettingsComponent,
   ],
   imports: [
     BrowserModule,

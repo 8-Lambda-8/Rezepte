@@ -6,6 +6,7 @@ import { EditCategoriesComponent } from './edit-categories/edit-categories.compo
 import { EditIngredientsComponent } from './edit-ingredients/edit-ingredients.component';
 import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
 import { RecipeComponent } from './recipe/recipe.component';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
 
 const routes: Routes = [
   { path: '', component: EditIngredientsComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'recipe/:id', component: RecipeComponent },
   { path: 'categoryRecipes/:id', component: CategoryRecipesComponent },
   { path: 'allRecipes', component: AllRecipesComponent },
+  { path: 'settings', component: UserSettingsComponent },
 
 ]
 
