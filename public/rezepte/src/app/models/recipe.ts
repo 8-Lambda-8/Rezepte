@@ -1,4 +1,3 @@
-import { Ingredient } from "./ingredient";
 import { Category } from "./category";
 import { IngredientEntry } from "./ingredientEntry";
 

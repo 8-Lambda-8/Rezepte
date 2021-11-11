@@ -24,16 +24,12 @@ export class AddIngredientComponent implements OnInit {
   ingredient: Ingredient = { id: "", name: "", possibleUnits: [] };
 
   ngOnInit(): void {
-    /* this.getIngredients(); */
-  }
 
-  /* getIngredients() {
-    this.ingredientsService.getIngredients().subscribe(item => console.log(item));
-  } */
+  }
 
   onSubmit() {
     if (this.ingredient.name != "" && this.ingredient.possibleUnits != []) {
-      this.ingredientsService.addItem(this.ingredient)
+      this.ingredientsService.addIngredient(this.ingredient)
       this.ingredient.name = "";
       this.ingredient.possibleUnits = [];
     }

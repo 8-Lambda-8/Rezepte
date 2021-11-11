@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Ingredient } from "../models/ingredient";
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class IngredientsService {
   ingredients: Ingredient[] = [];
 
   ingredientsObservable: Observable<Ingredient[]>;
+  private ingredientsChange: Subject<Ingredient[]> = new Subject();
 
   private ingredientsCol: AngularFirestoreCollection<Ingredient>;
 
@@ -21,28 +23,26 @@ export class IngredientsService {
 
     this.ingredientsObservable.subscribe(entry => {
       this.ingredients = entry;
+      this.ingredientsChange.next(entry);
     });
   }
 
-
   getIngredients(): Observable<Ingredient[]> {
-    return this.ingredientsObservable;//of(this.ingredients);
+    return this.ingredientsChange.asObservable();
   }
 
   getIngredient(id: string): Observable<Ingredient | undefined> {
-    return of(this.ingredients.find(ingredient => ingredient.id === id));
+    return this.ingredientsChange.asObservable().pipe(map(ingredients => ingredients.find(ingredients => ingredients.id == id)));
   }
 
-  addItem(ingredient: Ingredient) {
+  addIngredient(ingredient: Ingredient) {
     const id = this.db.createId();
     ingredient.id = id
     this.ingredientsCol.doc(id).set(ingredient);
   }
 
-
-  updateItem(ingredient: Ingredient) {
+  updateIngredient(ingredient: Ingredient) {
     this.ingredientsCol.doc(ingredient.id).update(ingredient);
   }
-
 
 }

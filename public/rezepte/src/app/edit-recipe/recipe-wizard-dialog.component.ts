@@ -38,7 +38,7 @@ export class RecipeWizardComponent {
         if (ing.unit != "-") {
             units.push(ing.unit);
         }
-        this.ingredientsService.addItem({ id: "", name: ing.name, possibleUnits: units })
+        this.ingredientsService.addIngredient({ id: "", name: ing.name, possibleUnits: units })
         setTimeout(this.onTextChanged, 2000);
     }
 

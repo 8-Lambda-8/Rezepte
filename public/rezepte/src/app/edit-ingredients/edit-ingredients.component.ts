@@ -29,7 +29,7 @@ export class EditIngredientsComponent implements OnInit {
 
   onChange(ingredient: Ingredient) {
     console.log(ingredient);
-    this.ingredientsService.updateItem(ingredient);
+    this.ingredientsService.updateIngredient(ingredient);
   }
 
 
