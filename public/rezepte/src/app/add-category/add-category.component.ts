@@ -24,14 +24,9 @@ export class AddCategoryComponent implements OnInit {
 
   subCategories() {
     this.categoriesService.getCategories().subscribe(item => {
-      this.possibleParents = item;
-      this.possibleParents.push(this.root)
-      this.possibleParents.sort(function (a, b) {
-        if (a.name < b.name) { return -1; }
-        if (a.name > b.name) { return 1; }
-        return 0;
-      })
-
+      this.possibleParents = [];
+      Object.assign(this.possibleParents, item);
+      this.possibleParents.splice(0,0,this.root);
     });
   }
 

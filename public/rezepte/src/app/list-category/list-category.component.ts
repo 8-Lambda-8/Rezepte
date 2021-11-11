@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Category } from '../models/category';
 import { CategoryMap } from '../models/categoryMap';
-import { Recipe } from '../models/recipe';
 import { CategoriesService } from '../service/categories.service';
-import { RecipeService } from '../service/recipe.service';
 import { ArrayDataSource } from '@angular/cdk/collections';
 import { NestedTreeControl } from '@angular/cdk/tree';
 
@@ -20,49 +16,10 @@ export class ListCategoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.subCategories();
+    this.categoriesService.getCategoryMap().subscribe(item => this.dataSource = new ArrayDataSource(item));
   }
-
-  categories: Category[] = [];
-  categoryMap: CategoryMap[] = [];
   treeControl = new NestedTreeControl<CategoryMap>(node => node.children);
-  dataSource = new ArrayDataSource(this.categoryMap);
-
-  subCategories() {
-    this.categoriesService.getCategories().subscribe(item => {
-      this.categories = item;
-      this.categories.sort(function (a, b) {
-        if (a.name < b.name) { return -1; }
-        if (a.name > b.name) { return 1; }
-        return 0;
-      });
-      this.updateCategoryMap();
-    });
-  }
-
-  childCategories(id: string) {
-    return this.categories.filter(obj => {
-      return obj.parentCategory == id;
-    });
-  }
-
-  updateCategoryMap() {
-    this.categoryMap = this.categoryMapRecursive("");
-    this.dataSource = new ArrayDataSource(this.categoryMap);
-  }
-
-  categoryMapRecursive(id: string): CategoryMap[] {
-    let catMap: CategoryMap[] = [];
-    this.childCategories(id).forEach(cat => {
-      catMap.push({
-        id: cat.id,
-        name: cat.name,
-        children: this.categoryMapRecursive(cat.id)
-      })
-    });
-
-    return catMap;
-  }
+  dataSource = new ArrayDataSource([]);
 
   hasChild = (_: number, node: CategoryMap) => !!node.children && node.children.length > 0;
 

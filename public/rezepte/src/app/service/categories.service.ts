@@ -1,44 +1,69 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Category } from "../models/category";
+import { CategoryMap } from '../models/categoryMap';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriesService {
 
-  categoriesObservable: Observable<Category[]>;
+  private categoriesObservable: Observable<Category[]>;
+  private categoriesChange: Subject<Category[]> = new Subject();
+  private categoryMapChange: Subject<CategoryMap[]> = new Subject();
+  private categories: Category[];
 
-  private ingredientsCol: AngularFirestoreCollection<Category>;
+  private categoriesCol: AngularFirestoreCollection<Category>;
 
   constructor(private db: AngularFirestore) {
-    this.ingredientsCol = db.collection('categories', ref => ref.orderBy('name'));
+    this.categoriesCol = db.collection('categories', ref => ref.orderBy('name'));
 
-    this.categoriesObservable = this.ingredientsCol.valueChanges();
+    this.categoriesObservable = this.categoriesCol.valueChanges();
+    this.categoriesObservable.subscribe(data => {
+      this.categories = data;
+      this.categoriesChange.next(data);
+      this.categoryMapChange.next(this.categoryMapRecursive(''));
+    })
   }
 
   getCategories(): Observable<Category[]> {
-    return this.categoriesObservable;
+    return this.categoriesChange.asObservable();
   }
 
   getCategory(id: string): Observable<Category | undefined> {
-    return this.categoriesObservable.pipe(map(categories => categories.find(category => category.id == id)));
+    return this.categoriesChange.asObservable().pipe(map(categories => categories.find(category => category.id == id)));
   }
 
   getSubCategories(id: string): Observable<Category[]> {
-    return this.categoriesObservable.pipe(map(categories => categories.filter(category => category.parentCategory == id)));
+    return this.categoriesChange.asObservable().pipe(map(categories => categories.filter(category => category.parentCategory == id)));
+  }
+
+  private categoryMapRecursive(id: string): CategoryMap[] {
+    let catMap: CategoryMap[] = [];
+    this.categories.filter(obj => obj.parentCategory == id).forEach(cat => {
+      catMap.push({
+        id: cat.id,
+        name: cat.name,
+        children: this.categoryMapRecursive(cat.id)
+      })
+    });
+    return catMap;
+  }
+
+  getCategoryMap(): Observable<CategoryMap[]> {
+    return this.categoryMapChange.asObservable();
   }
 
   addCategory(ingredient: Category) {
     const id = this.db.createId();
-    ingredient.id = id
-    this.ingredientsCol.doc(id).set(ingredient);
+    ingredient.id = id;
+    this.categoriesCol.doc(id).set(ingredient);
   }
 
   updateCategory(ingredient: Category) {
-    this.ingredientsCol.doc(ingredient.id).update(ingredient);
+    this.categoriesCol.doc(ingredient.id).update(ingredient);
   }
 
 }
