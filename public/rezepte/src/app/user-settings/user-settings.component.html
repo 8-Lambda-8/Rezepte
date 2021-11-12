@@ -1,1 +1,18 @@
-<p>user-settings works!</p>
+<form novalidate (ngSubmit)="onSubmit()">
+    <div>
+        User ID: {{userData.uid}}
+    </div>
+    <mat-form-field class="width100">
+        <mat-label>Name</mat-label>
+        <input matInput name="name" [(ngModel)]="userData.name">
+    </mat-form-field>
+    <div>
+        Permission Class: {{userData.permissionClass}}
+    </div>
+    <mat-slide-toggle class="width100" name="simpleRecipeMode" [(ngModel)]="userData.simpleRecipeMode">
+        Simple recipe Mode
+    </mat-slide-toggle>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit">Save</button>
+    </mat-card-actions>
+</form>
