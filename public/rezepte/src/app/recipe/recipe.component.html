@@ -1,14 +1,15 @@
 <mat-card-title>{{recipe.name}}</mat-card-title>
 
-<a *ngIf="myUserData.permissionClass>=3||recipe.author==myUserData.uid" routerLink="/editRecipe/{{recipe.id}}"
-    class="editButton">
+<a *ngIf="userDataService.myUserData.permissionClass>=3||recipe.author==userDataService.myUserData.uid"
+    routerLink="/editRecipe/{{recipe.id}}" class="editButton">
     <button mat-icon-button>
         <mat-icon>edit</mat-icon>
     </button>
 </a>
-
-Kategorien:
-<div *ngFor="let catergory of recipe.categories" style="margin-left: 10px;">{{catergory.name}}</div>
+<div *ngIf="recipe.categories.length">
+    Kategorien:
+    <div *ngFor="let catergory of recipe.categories" style="margin-left: 10px;">{{catergory.name}}</div>
+</div>
 
 <table *ngIf="recipe.ingredients[0]" mat-table [dataSource]="recipe.ingredients" class="width100"
     style="min-width: 300px;">
@@ -50,4 +51,6 @@ Kategorien:
 
 <br>
 
-<div style="margin-bottom: 2rem; white-space:pre-wrap;">{{recipe.text}}</div>
+<div *ngIf="recipe.text==''; else recipeText" name="originalText" style="margin-bottom: 2rem; white-space:pre-wrap;">
+    {{recipe.originalText}}</div>
+<ng-template #recipeText name="text" style="margin-bottom: 2rem; white-space:pre-wrap;">{{recipe.text}}</ng-template>

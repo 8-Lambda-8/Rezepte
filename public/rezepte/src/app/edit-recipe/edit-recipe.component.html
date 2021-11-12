@@ -1,6 +1,6 @@
 <mat-card-title>{{title}}</mat-card-title>
 
-<button *ngIf="id=='new'" mat-icon-button class="wizardButton" (click)="openDialog()">
+<button *ngIf="id=='new'&&!userDataService.myUserData.simpleRecipeMode" mat-icon-button class="wizardButton" (click)="openDialog()">
     <mat-icon>auto_fix_high</mat-icon>
 </button>
 
@@ -29,82 +29,89 @@
     </mat-form-field>
 
     <br>
-    <table *ngIf="recipe.ingredients.length>0" mat-table #ingredientTable [dataSource]="recipe.ingredients"
-        class="width100 list" cdkDropList [cdkDropListData]="recipe.ingredients" (cdkDropListDropped)="drop($event)">
+    <div #ingredient *ngIf="!userDataService.myUserData.simpleRecipeMode">
+        <table *ngIf="recipe.ingredients.length>0" mat-table #ingredientTable [dataSource]="recipe.ingredients"
+            class="width100 list" cdkDropList [cdkDropListData]="recipe.ingredients"
+            (cdkDropListDropped)="drop($event)">
 
-        <!-- handle Column -->
-        <ng-container matColumnDef="handle">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let element">
-                <mat-icon>drag_handle</mat-icon>
-            </td>
-        </ng-container>
+            <!-- handle Column -->
+            <ng-container matColumnDef="handle">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-icon>drag_handle</mat-icon>
+                </td>
+            </ng-container>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td [ngStyle]="{'font-weight': element.id.endsWith('Seperator') ? 'bold' : 'normal'}" mat-cell
-                *matCellDef="let element"> {{element.name}} </td>
-        </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td [ngStyle]="{'font-weight': element.id.endsWith('Seperator') ? 'bold' : 'normal'}" mat-cell
+                    *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
 
-        <!-- Amount Column -->
-        <ng-container matColumnDef="amount">
-            <th mat-header-cell *matHeaderCellDef> Amount </th>
-            <td mat-cell *matCellDef="let element">
-                <mat-form-field *ngIf="!element.id.endsWith('Seperator')" class="tableFormField">
-                    <input matInput type="number" placeholder="Amount" name="amount-{{element.id}}"
-                        [(ngModel)]="element.amount">
-                </mat-form-field>
-            </td>
-        </ng-container>
+            <!-- Amount Column -->
+            <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef> Amount </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-form-field *ngIf="!element.id.endsWith('Seperator')" class="tableFormField">
+                        <input matInput type="number" placeholder="Amount" name="amount-{{element.id}}"
+                            [(ngModel)]="element.amount">
+                    </mat-form-field>
+                </td>
+            </ng-container>
 
-        <!-- Unit Column -->
-        <ng-container matColumnDef="unit">
-            <th mat-header-cell *matHeaderCellDef> Unit </th>
-            <td mat-cell *matCellDef="let element">
-                <mat-form-field *ngIf="!element.id.endsWith('Seperator')" class="tableFormField">
-                    <mat-label>Unit</mat-label>
-                    <mat-select name="unit-{{element.id}}" [(ngModel)]="element.unit">
-                        <mat-option *ngFor="let unit of getUnitListOfIngredient(element.id)" [value]="unit">
-                            {{unit}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+            <!-- Unit Column -->
+            <ng-container matColumnDef="unit">
+                <th mat-header-cell *matHeaderCellDef> Unit </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-form-field *ngIf="!element.id.endsWith('Seperator')" class="tableFormField">
+                        <mat-label>Unit</mat-label>
+                        <mat-select name="unit-{{element.id}}" [(ngModel)]="element.unit">
+                            <mat-option *ngFor="let unit of getUnitListOfIngredient(element.id)" [value]="unit">
+                                {{unit}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
 
-            </td>
-        </ng-container>
+                </td>
+            </ng-container>
 
-        <!-- remove Column -->
-        <ng-container matColumnDef="remove">
-            <th mat-header-cell *matHeaderCellDef> remove </th>
-            <td mat-cell *matCellDef="let element">
-                <button mat-icon-button (click)="removeIngredient(element.id, element.amount)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </td>
-        </ng-container>
+            <!-- remove Column -->
+            <ng-container matColumnDef="remove">
+                <th mat-header-cell *matHeaderCellDef> remove </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="removeIngredient(element.id, element.amount)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" cdkDrag [cdkDragData]=row class="box"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" cdkDrag [cdkDragData]=row class="box"></tr>
 
-    </table>
+        </table>
 
-    <mat-form-field class="">
-        <mat-label>Add Ingredient</mat-label>
-        <input #ingredientInput type="text" matInput [formControl]="addIngredientCtrl" [matAutocomplete]="autoC">
-        <mat-autocomplete #autoC="matAutocomplete" (optionSelected)="selectedI($event)">
-            <mat-option *ngFor="let option of filteredIngredients | async" [value]="option">
-                {{option.name}}
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
+        <mat-form-field class="">
+            <mat-label>Add Ingredient</mat-label>
+            <input #ingredientInput type="text" matInput [formControl]="addIngredientCtrl" [matAutocomplete]="autoC">
+            <mat-autocomplete #autoC="matAutocomplete" (optionSelected)="selectedI($event)">
+                <mat-option *ngFor="let option of filteredIngredients | async" [value]="option">
+                    {{option.name}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
 
     <br>
 
     <mat-form-field class="width100">
         <mat-label>Recipe text</mat-label>
-        <textarea matInput name="text" [(ngModel)]="recipe.text" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+        <textarea matInput name="originalText" [(ngModel)]="recipe.originalText" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="10" cdkAutosizeMaxRows="30" *ngIf="userDataService.myUserData.simpleRecipeMode; else textTemplate"></textarea>
+        <ng-template #textTemplate>
+            <textarea matInput name="text" [(ngModel)]="recipe.text" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="10" cdkAutosizeMaxRows="30"></textarea>
+        </ng-template>
     </mat-form-field>
 
     <mat-card-actions>
