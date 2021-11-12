@@ -4,4 +4,5 @@ export interface UserData {
     permissionClass: number;
     email: string;
     photoURL: string;
+    simpleRecipeMode: boolean;
 }

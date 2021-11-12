@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserData } from '../models/userData';
+import { UserDataService } from '../service/user-data.service';
 
 @Component({
   selector: 'app-user-settings',
@@ -7,9 +9,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserSettingsComponent implements OnInit {
 
-  constructor() { }
+  userData: UserData = {
+    uid: "",
+    name: "",
+    permissionClass: 0,
+    email: "",
+    photoURL: "",
+    simpleRecipeMode: false
+  }
+
+  constructor(
+    private userDataService: UserDataService,
+  ) { }
 
   ngOnInit(): void {
+    this.subUserData();
+  }
+
+  subUserData() {
+    this.userDataService.getMyUserData().subscribe(userData => this.userData = userData);
+  }
+
+  onSubmit() {
+    console.log("Save");
+    if (this.userData.name != "") {
+      this.userDataService.updateUserData(this.userData);
+    }
   }
 
 }

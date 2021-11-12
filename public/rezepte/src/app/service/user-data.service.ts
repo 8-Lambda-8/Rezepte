@@ -13,7 +13,7 @@ export class UserDataService {
 
   private user: firebase.User;
 
-  myUserData: UserData = { uid: "", name: "", permissionClass: 0, photoURL: "", email: "" };
+  myUserData: UserData = { uid: "", name: "", permissionClass: 0, photoURL: "", email: "", simpleRecipeMode: false };
   myUserDataChange: Subject<UserData> = new Subject();
 
   myUserDataObservable: Observable<UserData>;
@@ -25,7 +25,7 @@ export class UserDataService {
     this.auth.user$.subscribe(user => {
       this.user = user;
       console.log("uid:" + user.uid);
-      this.myUserDataObservable = this.db.collection('users').doc<UserData>(user.uid).valueChanges()
+      this.myUserDataObservable = this.db.collection('users').doc<UserData>(user.uid).valueChanges();
       this.myUserDataObservable.subscribe(data => {
         this.myUserData = data;
         this.myUserDataChange.next(data);
@@ -39,6 +39,10 @@ export class UserDataService {
 
   getUserData(id: string): Observable<UserData> {
     return this.db.collection('users').doc<UserData>(id).valueChanges();
+  }
+
+  updateUserData(data: UserData) {
+    this.db.collection('users').doc<UserData>(data.uid).update(data);
   }
 
 }

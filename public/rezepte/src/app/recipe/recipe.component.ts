@@ -18,7 +18,7 @@ export class RecipeComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'amount', 'unit'];
 
-  myUserData: UserData = { uid: "", name: "", permissionClass: 0, photoURL: "", email: "" };
+  myUserData: UserData = { uid: "", name: "", permissionClass: 0, photoURL: "", email: "", simpleRecipeMode:false };
 
   constructor(
     private route: ActivatedRoute,

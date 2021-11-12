@@ -29,6 +29,8 @@ import { EditCategoriesComponent, EditCategoriesDialog } from './edit-categories
 import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
 import { RecipeWizardComponent } from "./edit-recipe/recipe-wizard-dialog.component";
 import { CategoryRecipesComponent } from './category-recipes/category-recipes.component';
+import { AllRecipesComponent } from './all-recipes/all-recipes.component';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
 
 
 import { environment } from 'src/environments/environment';
@@ -59,8 +61,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CdkTreeModule } from '@angular/cdk/tree';
-import { AllRecipesComponent } from './all-recipes/all-recipes.component';
-import { UserSettingsComponent } from './user-settings/user-settings.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 @NgModule({
@@ -115,6 +116,7 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
     MatTableModule,
     DragDropModule,
     CdkTreeModule,
+    MatSlideToggleModule,
     AngularFireFunctionsModule
   ],
   exports: [MatFormFieldModule],

@@ -11,14 +11,14 @@ import { UserDataService } from "./service/user-data.service";
 })
 export class AppComponent {
   title = 'Rezepte';
-  myUserData: UserData = { uid: "", name: "", permissionClass: 0, photoURL: "", email: "" };
+  myUserData: UserData = { uid: "", name: "", permissionClass: 0, photoURL: "", email: "", simpleRecipeMode: false };
   constructor(
     userDataService: UserDataService,
     private db: AngularFirestore,
     private readonly auth: AuthService
   ) {
-    userDataService.getMyUserData().subscribe(data=>{
-      this.myUserData=data;
+    userDataService.getMyUserData().subscribe(data => {
+      this.myUserData = data;
     });
   }
 }
