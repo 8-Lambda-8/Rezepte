@@ -17,6 +17,8 @@ import { RecipeWizardComponent } from "./recipe-wizard-dialog.component";
 import { IngredientEntry } from '../models/ingredientEntry';
 import { MatTable } from '@angular/material/table';
 import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
+import { UserDataService } from '../service/user-data.service';
+import { UserData } from '../models/userData';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -37,6 +39,7 @@ export class EditRecipeComponent implements OnInit {
     private recipeService: RecipeService,
     private categoriesService: CategoriesService,
     private ingredientsService: IngredientsService,
+    public userDataService: UserDataService,
     public dialog: MatDialog,
   ) {
     this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
@@ -70,11 +73,6 @@ export class EditRecipeComponent implements OnInit {
   subCategories() {
     this.categoriesService.getCategories().subscribe(item => {
       this.categories = item;
-      this.categories.sort(function (a, b) {
-        if (a.name < b.name) { return -1; }
-        if (a.name > b.name) { return 1; }
-        return 0;
-      });
       this.categoryCtrl.setValue("x");
       this.categoryCtrl.setValue("");
     });
@@ -84,11 +82,6 @@ export class EditRecipeComponent implements OnInit {
     this.ingredientsService.getIngredients().subscribe(item => {
       this.ingredients = item;
       this.ingredients.forEach(ing => ing.possibleUnits.push("-"));
-      this.ingredients.sort(function (a, b) {
-        if (a.name < b.name) { return -1; }
-        if (a.name > b.name) { return 1; }
-        return 0;
-      });
       this.addIngredientCtrl.setValue("x");
       this.addIngredientCtrl.setValue("");
     });
