@@ -56,14 +56,18 @@ export class CategoriesService {
     return this.categoryMapChange.asObservable();
   }
 
-  addCategory(ingredient: Category) {
-    const id = this.db.createId();
-    ingredient.id = id;
-    this.categoriesCol.doc(id).set(ingredient);
+  addCategory(category: Category) {
+    if (category) {      
+      const id = this.db.createId();
+      category.id = id;
+      this.categoriesCol.doc(id).set(category);
+    }
   }
 
-  updateCategory(ingredient: Category) {
-    this.categoriesCol.doc(ingredient.id).update(ingredient);
+  updateCategory(category: Category) {
+    if (category) {      
+      this.categoriesCol.doc(category.id).update(category);
+    }
   }
 
 }
