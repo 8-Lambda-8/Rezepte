@@ -2,7 +2,7 @@
   <button mat-icon-button class="example-icon" (click)="toggleDrawer.emit('')">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>{{title}}</span>
+  <a href="/">{{title}}</a>
 
   <span class="spacer"></span>
   <ng-container *ngIf="user$ | async as user; else loginIcon">
