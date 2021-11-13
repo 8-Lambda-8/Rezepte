@@ -137,7 +137,11 @@ export class EditRecipeComponent implements OnInit {
   filteredIngredients: Observable<Ingredient[]>;
 
   getUnitListOfIngredient(ingredientId: string): string[] {
-    return this.ingredients.find(ing => ing.id == ingredientId).possibleUnits;
+    let ing = this.ingredients.find(ing => ing.id == ingredientId);
+    if(ing)
+        if(ing.possibleUnits)
+          return this.ingredients.find(ing => ing.id == ingredientId).possibleUnits;
+    return [];
   }
 
 
