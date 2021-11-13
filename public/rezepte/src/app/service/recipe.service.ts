@@ -39,14 +39,15 @@ export class RecipeService {
   }
 
   updateItem(recipe: Recipe): void {
-    if (recipe.id == "new") {
-      const id = this.db.createId();
-      recipe.id = id;
-      recipe.author = this.user.uid;
-      this.recipeCol.doc(recipe.id).set(recipe);
-    } else {
-      this.recipeCol.doc(recipe.id).update(recipe);
+    if (recipe) {
+      if (recipe.id == "new") {
+        const id = this.db.createId();
+        recipe.id = id;
+        recipe.author = this.user.uid;
+        this.recipeCol.doc(recipe.id).set(recipe);
+      } else {
+        this.recipeCol.doc(recipe.id).update(recipe);
+      }
     }
   }
-
 }
