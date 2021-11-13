@@ -36,13 +36,17 @@ export class IngredientsService {
   }
 
   addIngredient(ingredient: Ingredient) {
-    const id = this.db.createId();
-    ingredient.id = id
-    this.ingredientsCol.doc(id).set(ingredient);
+    if (ingredient) {
+      const id = this.db.createId();
+      ingredient.id = id
+      this.ingredientsCol.doc(id).set(ingredient);
+    }
   }
 
   updateIngredient(ingredient: Ingredient) {
-    this.ingredientsCol.doc(ingredient.id).update(ingredient);
+    if (ingredient) {
+      this.ingredientsCol.doc(ingredient.id).update(ingredient);
+    }
   }
 
 }
