@@ -34,16 +34,16 @@ export class EditCategoriesComponent implements OnInit {
   }
 
   openDialog(categoryId: string): void {
-    this.categoriesService.getCategory(categoryId).toPromise().then(category => {
-      const dialogRef = this.dialog.open(EditCategoriesDialog, {
-        width: '250px',
-        data: { category: category, possibleParents: this.possibleParents }
-      });
+    let category = this.categoriesService.getCategory(categoryId)
+    console.log(categoryId, " ", category)
+    const dialogRef = this.dialog.open(EditCategoriesDialog, {
+      width: '250px',
+      data: { category: category, possibleParents: this.possibleParents }
+    });
 
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-        this.categoriesService.updateCategory(result);
-      });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.categoriesService.updateCategory(result);
     });
   }
 }

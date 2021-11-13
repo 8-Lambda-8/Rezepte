@@ -7,8 +7,10 @@ import { EditIngredientsComponent } from './edit-ingredients/edit-ingredients.co
 import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
 import { RecipeComponent } from './recipe/recipe.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
+  { path: '', component: HomeComponent },  
   { path: '', component: EditIngredientsComponent },
   { path: 'editIngredients', component: EditIngredientsComponent },
   { path: 'editCategories', component: EditCategoriesComponent },

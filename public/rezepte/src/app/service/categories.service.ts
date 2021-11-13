@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Category } from "../models/category";
@@ -32,8 +32,8 @@ export class CategoriesService {
     return this.categoriesChange.asObservable();
   }
 
-  getCategory(id: string): Observable<Category | undefined> {
-    return this.categoriesChange.asObservable().pipe(map(categories => categories.find(category => category.id == id)));
+  getCategory(id: string): Category {
+    return this.categories.find(category => category.id == id);
   }
 
   getSubCategories(id: string): Observable<Category[]> {
@@ -56,14 +56,18 @@ export class CategoriesService {
     return this.categoryMapChange.asObservable();
   }
 
-  addCategory(ingredient: Category) {
-    const id = this.db.createId();
-    ingredient.id = id;
-    this.categoriesCol.doc(id).set(ingredient);
+  addCategory(category: Category) {
+    if (category) {      
+      const id = this.db.createId();
+      category.id = id;
+      this.categoriesCol.doc(id).set(category);
+    }
   }
 
-  updateCategory(ingredient: Category) {
-    this.categoriesCol.doc(ingredient.id).update(ingredient);
+  updateCategory(category: Category) {
+    if (category) {      
+      this.categoriesCol.doc(category.id).update(category);
+    }
   }
 
 }
