@@ -25,7 +25,7 @@ export class CategoryRecipesComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.addSubCategoriesToArray(this.id);
-    this.categoriesService.getCategory(this.id).subscribe(cat => this.name = cat.name);
+    this.name = this.categoriesService.getCategory(this.id).name;
   }
 
   addSubCategoriesToArray(id: string) {
