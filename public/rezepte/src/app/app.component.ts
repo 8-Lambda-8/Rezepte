@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { UserData } from './models/userData';
 import { AuthService } from './service/auth.service';
 import { UserDataService } from "./service/user-data.service";
