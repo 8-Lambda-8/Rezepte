@@ -4,7 +4,7 @@ import { Recipe } from '../models/recipe';
 import { RecipeService } from '../service/recipe.service';
 import { UserData } from '../models/userData';
 import { AuthService } from '../service/auth.service';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { UserDataService } from '../service/user-data.service';
 
 @Component({
